@@ -1,6 +1,7 @@
 <!-- Add banner here -->
 
-# Project Title
+# Flipkart Grid 3.0
+**Team Name**: Chemistry Gods
 
 <!-- Add buttons here -->
 
