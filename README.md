@@ -94,9 +94,20 @@ To use this project, first clone the repo on your device using the command below
 
 <!-- This is optional and it is used to give the user info on how to use the project after installation. This could be added in the Installation section also. -->
 
-# Development
+# Code Documentation
 [(Back to top)](#table-of-contents)
 
+The backend of our smart bag application, is coded in Python using the library Flask.
+The datasets used in the recommendation system consists of dummy data we created, with an aim to make it seem as real (and random) as possible. The datasets are as followed:
+1) orderHistory.csv - Contains the order history of the entire user base of the application. It has the attributes of Order ID, User ID, Product Name, Product ID, Product Brand, and its price. 
+2) products.csv - This dataset contains the information about each and every product available on the web app, including its PID, Name, Brand and Price.
+3) browseHistory.csv - This dataset contains the browser history of the entire use base, containing a User ID, the browse query, and the date.
+
+A high level overview of the algorithm used would be as follows:
+1) A set of attributes would be used to pre compute similarity amongst different products. These include: The price of the products, The name of the products, The brand of the products
+2) A user logging in would have an ID mapped, which would be used to fetch his specific Order History and Browse History. 
+3) Using the Order History, information is used to create another set of attributes.  
+    
 <!-- This is the place where you give instructions to developers on how to modify the code.
 
 You could give **instructions in depth** of **how the code works** and how everything is put together.
@@ -104,6 +115,9 @@ You could give **instructions in depth** of **how the code works** and how every
 You could also give specific instructions to how they can setup their development environment.
 
 Ideally, you should keep the README simple. If you need to add more complex explanations, use a wiki. Check out [this wiki](https://github.com/navendu-pottekkat/nsfw-filter/wiki) for inspiration. -->
+# Further Optimization Plans
+Some optimizations which we have in mind that can be made for the sake of scalability: 
+1) Currently, the technique in which data is being stored is a kind of ad-hoc technique. Once the application starts scaling, we can make a better organized database with the orderHistory and browserHistory being mapped to each user, instead of a large csv file. This would be a space-time tradeoff, but would improve the algorithm draastically as we would have O(1) time retreival of data for a specific user.
 
 # Contribute
 [(Back to top)](#table-of-contents)
