@@ -104,10 +104,58 @@ The datasets used in the recommendation system consists of dummy data we created
 3) browseHistory.csv - This dataset contains the browser history of the entire use base, containing a User ID, the browse query, and the date.
 
 A high level overview of the algorithm used would be as follows:
-1) A set of attributes would be used to pre compute similarity amongst different products. These include: The price of the products, The name of the products, The brand of the products
+1) A set of attributes would be used to pre compute similarity amongst different products. These include: 
+    * The price of the products
+    * The name of the products
+    * The brand of the products
 2) A user logging in would have an ID mapped, which would be used to fetch his specific Order History and Browse History. 
-3) Using the Order History, information is used to create another set of attributes.  
-    
+3) Using the Order History, the data of that user is used to create another set of attributes. The new attributes include:
+    * The date of ordering of his previous items
+    * The brand preference of the user 
+4) All of this data is clubbed together into a (Products X Attributes) Matrix. We then find its Correlation Matrix.
+5) Using the correlation matrix, we get information about which product is the most linked to another set of products.
+6) Now, using the browse queries of the user, we find possible products using a simple application of Levenshtein Distance (or edit distance). We create a list of possible products the user was trying to search
+7) Now, we have both the tools required to get the final recommendations, the possible products and the correlation matrix of the products.
+8) The algorithm then finds the products most related to the products present in the Possible Products list, and a randomizer is used incase of a large quantity of products.
+9) This would be the final recommmendations provided for the user, which are then relayed back to our front end.
+
+## Attributes
+All the numeric attributes used were standardized in a range of 0-1, so that none of the attribute dominates over others. Apart from that boolean values were also used.
+
+### Pre Computed Attributes
+#### ** Price Attribute **
+* The products.csv dataset has the information related to all the products, including their prices. 
+* The intution behind why we are using the price as a relation attribute, is that in real life scenarios, if a user is buying products in a specific price range, there is a high chance he would keep buying items from similar price ranges.
+* So, a precomputation was done regarding the standardization of the price in the range of 0-1. The formula used is: 
+>  standardized_price = (maxPrice - product_price)/(maxPrice - minPrice) 
+
+#### ** Name of the Product Attribute **
+* The products.csv dataset has the information related to all the products, including their prices. 
+* The intution behind why we are using the price as a relation attribute, is that in real life scenarios, if a user is buying products in a specific price range, there is a high chance he would keep buying items from similar price ranges.
+* So, a precomputation was done regarding the standardization of the price in the range of 0-1. The formula used is: 
+>  standardized_price = (maxPrice - product_price)/(maxPrice - minPrice) 
+
+#### ** Brand of the Product Attribute **
+* The products.csv dataset has the information related to all the products, including their prices. 
+* The intution behind why we are using the price as a relation attribute, is that in real life scenarios, if a user is buying products in a specific price range, there is a high chance he would keep buying items from similar price ranges.
+* So, a precomputation was done regarding the standardization of the price in the range of 0-1. The formula used is: 
+>  standardized_price = (maxPrice - product_price)/(maxPrice - minPrice) 
+
+### User Specific Attributes
+#### ** Brand Preference of User Attribute **
+* The products.csv dataset has the information related to all the products, including their prices. 
+* The intution behind why we are using the price as a relation attribute, is that in real life scenarios, if a user is buying products in a specific price range, there is a high chance he would keep buying items from similar price ranges.
+* So, a precomputation was done regarding the standardization of the price in the range of 0-1. The formula used is: 
+>  standardized_price = (maxPrice - product_price)/(maxPrice - minPrice) 
+
+#### ** Date of products ordered in previous orders Attribute **
+* The products.csv dataset has the information related to all the products, including their prices. 
+* The intution behind why we are using the price as a relation attribute, is that in real life scenarios, if a user is buying products in a specific price range, there is a high chance he would keep buying items from similar price ranges.
+* So, a precomputation was done regarding the standardization of the price in the range of 0-1. The formula used is: 
+>  standardized_price = (maxPrice - product_price)/(maxPrice - minPrice) 
+
+
+        
 <!-- This is the place where you give instructions to developers on how to modify the code.
 
 You could give **instructions in depth** of **how the code works** and how everything is put together.
@@ -117,7 +165,7 @@ You could also give specific instructions to how they can setup their developmen
 Ideally, you should keep the README simple. If you need to add more complex explanations, use a wiki. Check out [this wiki](https://github.com/navendu-pottekkat/nsfw-filter/wiki) for inspiration. -->
 # Further Optimization Plans
 Some optimizations which we have in mind that can be made for the sake of scalability: 
-1) Currently, the technique in which data is being stored is a kind of ad-hoc technique. Once the application starts scaling, we can make a better organized database with the orderHistory and browserHistory being mapped to each user, instead of a large csv file. This would be a space-time tradeoff, but would improve the algorithm draastically as we would have O(1) time retreival of data for a specific user.
+1) Currently, the technique in which data is being stored is a kind of an ad-hoc technique. Once the application starts scaling, we can make a better organized database with the orderHistory and browserHistory being mapped to each user, instead of a large csv file. This would be a space-time tradeoff, but would improve the algorithm draastically as we would have O(1) time retreival of data for a specific user.
 
 # Contribute
 [(Back to top)](#table-of-contents)
