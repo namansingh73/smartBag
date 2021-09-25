@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from Recommender import Recommender
+import os
 
 app = Flask(__name__)
 
@@ -47,5 +48,6 @@ def index():
     return "<h1>Welcome to the Flask server</h1>"
 
 
+PORT = int(os.environ.get('PORT', 5000))
 if __name__ == '__main__':
-    app.run(port=5000, debug=True, use_reloader=False)
+    app.run(port=PORT, debug=True, use_reloader=False)
